@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>결과 모으기 설정 안내</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&display=swap">
+<style>
+/* Layout: one reading column; numbered steps as cards, each with what to click and what you should see. */
+:root{--forest:#16392c;--jade:#25845f;--mist:#e9f2e4;--paper:#fbfdf8;--ink:#1b2620;--soft:#4f6157;--gold:#e3ad1f;--line:#d6e2d1;--warn:#fff4d6;--code:#eef3ec;
+  --f-display:'Do Hyeon','Gowun Dodum',system-ui,sans-serif;--f-body:'Gowun Dodum','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--forest:#bfe3c9;--jade:#6fcf9b;--mist:#101a15;--paper:#17241d;--ink:#e6efe8;--soft:#a9bdb1;--gold:#f2c14e;--line:#2c3d33;--warn:#3a321b;--code:#22332a;color-scheme:dark}}
+:root[data-theme="dark"]{--forest:#bfe3c9;--jade:#6fcf9b;--mist:#101a15;--paper:#17241d;--ink:#e6efe8;--soft:#a9bdb1;--gold:#f2c14e;--line:#2c3d33;--warn:#3a321b;--code:#22332a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--mist);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.65;word-break:keep-all;
+  padding-block:28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-family:var(--f-display);font-weight:400;font-size:clamp(30px,6vw,40px);line-height:1.15;color:var(--forest);margin:0;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:400;font-size:26px;color:var(--forest);margin:18px 0 0}
+.lead{margin:0;color:var(--soft)}
+.step{background:var(--paper);border-radius:16px;padding:16px 18px;border:1px solid var(--line);display:grid;grid-template-columns:40px 1fr;gap:4px 12px}
+.num{width:36px;height:36px;border-radius:50%;background:var(--jade);color:var(--paper);display:grid;place-items:center;font-family:var(--f-display);font-size:20px;grid-row:span 3}
+.step b.t{font-size:18px}
+.step p,.step ul{margin:0}
+.step ul{padding-left:20px}
+.see{color:var(--soft);font-size:15px}
+.note{background:var(--warn);border-radius:12px;padding:12px 14px;font-size:15px}
+code,kbd{background:var(--code);border-radius:6px;padding:1px 6px;font-size:15px;font-family:ui-monospace,Menlo,Consolas,monospace}
+kbd{font-family:var(--f-body);font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:15px}
+.wrap{overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--forest)}
+a{color:var(--jade);font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <h1>학생 결과와 반 순위를 모으는 설정</h1>
+  <p class="lead">처음 한 번만 하면 되고 15분쯤 걸려요. 구글이 무료로 주는 저장소(Firebase)를 쓰고, 결제 카드는 등록하지 않아요. 4차시부터는 같은 설정을 그대로 씁니다.</p>
+  <p class="note">설정을 하지 않아도 게임은 그대로 돼요. 다만 결과와 순위가 학생 각자의 기기에만 남고, 선생님 화면에는 아무도 나타나지 않아요.</p>
+
+  <h2>1. Firebase 프로젝트 만들기</h2>
+  <div class="step"><span class="num">1</span><b class="t">프로젝트 만들기</b>
+    <p><a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a>에 구글 계정으로 들어가 <kbd>프로젝트 만들기</kbd>를 눌러요. 이름은 <code>chinese-panda</code>처럼 영어로 쓰고, 애널리틱스나 AI 도우미를 묻는 화면은 <kbd>사용 안함</kbd>으로 넘어가요.</p>
+    <p class="see">요금제는 무료(Spark)로 시작해요. 업그레이드하라는 버튼은 누르지 않아요.</p></div>
+  <div class="step"><span class="num">2</span><b class="t">로그인 방법 두 개 켜기</b>
+    <p>왼쪽 메뉴에서 <kbd>Authentication</kbd>을 찾아 들어가 <kbd>시작하기</kbd>를 눌러요. (메뉴 묶음 이름이 <kbd>빌드</kbd>나 <kbd>Security</kbd>로 보일 수 있어요. 안 보이면 위쪽 검색창에 Authentication을 입력해요.) <kbd>로그인 방법</kbd> 탭에서 <b>익명</b>을 사용 설정하고 저장, <b>이메일/비밀번호</b>도 사용 설정하고 저장해요.</p>
+    <p class="see">익명 = 학생이 회원가입 없이 들어오는 방법, 이메일/비밀번호 = 선생님 로그인.</p></div>
+  <div class="step"><span class="num">3</span><b class="t">선생님 계정 만들기</b>
+    <p>같은 화면의 <kbd>사용자</kbd> 탭 → <kbd>사용자 추가</kbd>. 선생님 이메일과 비밀번호(6자 이상)를 넣어요. 이 이메일을 6단계에서 다시 써요.</p></div>
+  <div class="step"><span class="num">4</span><b class="t">게임 주소 허락하기</b>
+    <p>Authentication의 <kbd>설정</kbd> 탭 → <kbd>승인된 도메인</kbd> → <kbd>도메인 추가</kbd>에 <code>내아이디.github.io</code>를 넣어요. (GitHub 주소에서 <code>https://</code>와 뒤의 <code>/저장소이름/</code>을 뺀 부분)</p></div>
+
+  <h2>2. 결과 저장소 만들기</h2>
+  <div class="step"><span class="num">5</span><b class="t">Firestore 데이터베이스 만들기</b>
+    <p>왼쪽 메뉴에서 <kbd>Firestore</kbd>를 찾아 들어가 <kbd>데이터베이스 만들기</kbd>를 눌러요. (요즘 화면에서는 <kbd>Databases &amp; Storage</kbd> 묶음 안에 있어요. 안 보이면 검색창에 Firestore를 입력해요.) 에디션을 물으면 <b>Standard</b>, 위치는 <code>asia-northeast3 (Seoul)</code>, 시작 모드는 <b>프로덕션 모드</b>를 골라요.</p>
+    <p class="see">위치는 나중에 바꿀 수 없어요. 서울을 꼭 골라 주세요.</p></div>
+  <div class="step"><span class="num">6</span><b class="t">보안 규칙 붙여 넣기</b>
+    <p>Firestore의 <kbd>규칙</kbd> 탭에서 원래 글을 모두 지우고, 함께 드린 <code>firestore-rules.txt</code> 내용을 붙여 넣어요. 그 안의 <code>teacher@example.com</code>을 3단계 이메일로 바꾸고 <kbd>게시</kbd>를 눌러요.</p>
+    <p class="see">이 규칙 덕분에 학생은 자기 기록과 순위(이름·점수)만 볼 수 있고, 문제별 자세한 결과와 삭제는 선생님만 할 수 있어요.</p></div>
+
+  <h2>3. 게임과 연결하기</h2>
+  <div class="step"><span class="num">7</span><b class="t">웹 앱 등록하고 값 복사하기</b>
+    <p>왼쪽 위 톱니바퀴 → <kbd>프로젝트 설정</kbd> → 아래쪽 <kbd>내 앱</kbd>에서 웹 아이콘 <code>&lt;/&gt;</code>을 눌러 앱 이름을 쓰고 등록해요. (Hosting 설정은 체크하지 않아요)</p>
+    <p>화면에 나오는 <code>firebaseConfig</code>의 여섯 값(apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId)을 <code>firebase-config.js</code>의 같은 이름 따옴표 안에 하나씩 붙여 넣어요.</p></div>
+  <div class="step"><span class="num">8</span><b class="t">GitHub에 다시 올리기</b>
+    <p>고친 <code>firebase-config.js</code>를 GitHub 저장소에 올려요(<kbd>Add file</kbd> → <kbd>Upload files</kbd> → <kbd>Commit changes</kbd>). 1~2분 뒤 반영돼요.</p></div>
+
+  <h2>4. 잘 되는지 확인하기</h2>
+  <div class="step"><span class="num">9</span><b class="t">학생 화면</b>
+    <p>게임 주소를 열고 이름을 써서 시작해요. 오른쪽 위 🏆 옆 작은 점이 <b>초록색</b>이면 연결된 거예요. 노란색은 연결 중, 빨간색은 오류(4단계 도메인이나 7단계 값을 다시 확인).</p></div>
+  <div class="step"><span class="num">10</span><b class="t">선생님 화면</b>
+    <p>게임 주소 끝에 <code>teacher.html</code>을 붙여 열어요. 예: <code>https://내아이디.github.io/panda-lesson3/teacher.html</code>. 3단계 이메일로 로그인하면 방금 들어온 학생이 보여요.</p></div>
+
+  <h2>4차시부터는</h2>
+  <p class="note">Firebase 설정은 그대로 써요. 새 차시 저장소에도 <b>같은 값을 넣은</b> <code>firebase-config.js</code>를 올리기만 하면 돼요. 저장소 주소가 같은 <code>내아이디.github.io</code>라면 4단계도 다시 할 필요가 없어요. 선생님 화면은 차시마다 그 저장소의 <code>teacher.html</code>을 열거나, 아무 차시의 선생님 화면에서 <b>차시</b> 칸에 <code>lesson3</code>, <code>lesson4</code>처럼 입력해 불러와요.</p>
+
+  <h2>수업할 때</h2>
+  <div class="wrap"><table>
+    <tr><th>하고 싶은 일</th><th>방법</th></tr>
+    <tr><td>학생에게 링크 주기</td><td>게임 주소를 그대로 줘요. 카카오톡으로 받은 학생은 <b>다른 브라우저로 열기</b>를 하도록 안내해요(소리 문제 예방).</td></tr>
+    <tr><td>반을 나누어 보기</td><td>주소 끝에 <code>?class=3반</code>을 붙여 반마다 다른 링크를 줘요. 선생님 화면의 <b>반</b> 칸에 같은 글자를 쓰면 그 반만 보여요. 순위표도 반끼리만 나와요.</td></tr>
+    <tr><td>순위 함께 보기</td><td>선생님 화면의 <b>🏆 순위 크게 보기</b>를 화면 공유해요.</td></tr>
+    <tr><td>결과 보관</td><td><b>CSV 저장</b>으로 내 컴퓨터에 내려받아요(엑셀에서 열려요).</td></tr>
+    <tr><td>수업 뒤 지우기</td><td><b>이 날 결과 삭제</b> → <code>삭제</code>라고 입력. 남은 기록 수가 0인지 확인해요.</td></tr>
+  </table></div>
+
+  <h2>무료 한도와 개인정보</h2>
+  <p class="note">무료 한도는 하루 쓰기 2만 번, 읽기 5만 번이에요. 15명이 한 판 하면 쓰기 약 1,500~2,000번이라 하루 여러 반도 충분해요. 한도를 넘어도 요금이 나가지 않고 그날 저장만 멈춰요.<br>
+  저장되는 것은 학생이 쓴 이름·별명과 게임 기록뿐이에요. 실명 대신 별명을 쓰게 하고, 학교의 외부 서비스 사용 기준을 먼저 확인해 주세요. 저장 위치는 구글 서울 데이터센터예요.</p>
+</main>
+</body>
+</html>
